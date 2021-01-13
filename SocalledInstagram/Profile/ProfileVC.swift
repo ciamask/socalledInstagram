@@ -18,13 +18,14 @@ class ProfileVC: BaseViewController {
     }
     
     let baseView = ProfileView()
+    let data = photosData()
     
     override func loadView() {
         view = baseView
     }
 
     private func setupCollectionView() {
-        baseView.photosCollection.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "PhotosCol")
+        baseView.photosCollection.register(Photoscell.self, forCellWithReuseIdentifier: Photoscell.cellId)
         baseView.photosCollection.delegate = self
         baseView.photosCollection.dataSource = self
     }
@@ -35,12 +36,14 @@ class ProfileVC: BaseViewController {
 
 extension ProfileVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 15
+        return data.getPhotos().count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotosCol", for: indexPath)
-        cell.backgroundColor = .green
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Photoscell.cellId, for: indexPath) as! Photoscell
+        cell.backgroundColor = .systemGray
+        let model = data.getPhotos()[indexPath.row]
+        cell.configureCell(with: model)
         return cell
     }
     

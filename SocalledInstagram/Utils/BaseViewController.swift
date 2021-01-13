@@ -15,7 +15,7 @@ class BaseViewController: UIViewController {
     }
     
     private func addLogo() {
-        let logoimage = #imageLiteral(resourceName: "icons8-instagram-64")
+        let logoimage = #imageLiteral(resourceName: "logo")
         let logoImageView = UIImageView(image: logoimage)
         logoImageView.contentMode = .scaleAspectFit
         navigationItem.titleView = logoImageView

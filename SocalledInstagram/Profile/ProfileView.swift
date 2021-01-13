@@ -126,7 +126,6 @@ class ProfileView: UIView {
     let photosCollection : UICollectionView = {
         let photoLayout = UICollectionViewFlowLayout()
         let photoCollection = UICollectionView(frame: .zero, collectionViewLayout: photoLayout)
-        
         return photoCollection
     }()
     

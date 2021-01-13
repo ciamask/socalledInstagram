@@ -7,7 +7,7 @@
 
 import UIKit
 
-class StoryCell: UICollectionViewCell {
+class HomeStoryCell: UICollectionViewCell {
     
     static let cellId = "storyCell"
     
@@ -21,17 +21,27 @@ class StoryCell: UICollectionViewCell {
         imageView.layer.cornerRadius = 30
         imageView.widthAnchor.constraint(equalToConstant: 60).isActive = true
         imageView.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        imageView.image = #imageLiteral(resourceName: "cute")
+//        imageView.image = #imageLiteral(resourceName: "cute")
         return imageView
     }()
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
-        
+        setupUI()
+    }
+    
+    private func setupUI(){
         addSubview(profileImage)
         profileImage.fillSuperview(padding: .init(top: 5, left: 5, bottom: 5, right: 5))
     }
+    
+    func configureStoryCell(with populate: storyModel){
+        profileImage.image = populate.profileImage
+    }
+    
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

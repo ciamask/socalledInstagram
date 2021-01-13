@@ -62,6 +62,7 @@ class FriendsCell: UITableViewCell {
     
     private func setupUI() {
         addSubview(infoStack)
+        infoStack.fillSuperview(padding: .init(top: 5, left: 5, bottom: 5, right: 5))
         infoStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
         infoStack.topAnchor.constraint(equalTo: topAnchor).isActive = true
         infoStack.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
