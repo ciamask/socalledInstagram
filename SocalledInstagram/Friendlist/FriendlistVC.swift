@@ -13,13 +13,49 @@ class FriendlistVC: BaseViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         setupTableView()
+        observeEvents()
     }
     
     let currentview = FriendlistView()
-    let data = FriendsData()
+    var data = FriendsData() {
+        didSet {
+            currentview.tableView.reloadData()
+        }
+    }
+    
+    lazy var originalData = data.getData()
     
     override func loadView() {
         view = currentview
+    }
+    
+    func observeEvents() {
+        currentview.issearchFieldedited = { [weak self] (searchText) in
+            guard let self = self else { return }
+            self.filterSearchData(searchText: searchText)
+        }
+    }
+    
+    private func filterSearchData(searchText: String) {
+        
+//        var tempFilteredData = [FriendsModel]()
+        
+        let tempFilteredData = originalData.filter({ $0.friendsName.contains(searchText) })
+        searchText.isEmpty ? data.setData(friendsArray: originalData) : data.setData(friendsArray: tempFilteredData)
+//
+//        for value in originalData {
+//            let name = value.friendsName
+//            let doesContain = name.contains(searchText)
+//            if doesContain {
+//                tempFilteredData.append(value)
+//            }
+//            if searchText.isEmpty {
+//                data.setData(friendsArray: originalData)
+//            } else {
+//                data.setData(friendsArray: tempFilteredData)
+//            }
+//        }
+//        currentview.tableView.reloadData()
     }
     
     private func setupTableView() {

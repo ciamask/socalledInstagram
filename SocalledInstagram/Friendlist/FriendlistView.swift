@@ -18,6 +18,9 @@ class FriendlistView: UIView{
         fatalError("init(coder:) has not been implemented")
     }
     
+    var issearchFieldedited: ((String) -> Void)?
+    var data = FriendsData()
+    
     let titleView: UILabel = {
         let title = UILabel()
         title.text = "FRIENDS"
@@ -64,10 +67,23 @@ class FriendlistView: UIView{
     
     @objc func handleSearchField() {
 //        print(searchField.text)
-        let searchText = searchField.text ?? ""
-        let name = "Shreeya"
-        let doesContainText = name.contains(searchText)
-        print("Does Contain? ", doesContainText)
+        issearchFieldedited?(searchField.text ?? "")
+//        let filteredData = [FriendsModel]()
+//        let searchText = searchField.text ?? ""
+//        let totalCellnumber = data.getData()
+//        for (_,num) in totalCellnumber.enumerated(){
+//            let doesContainText = num.friendsName.contains(searchText)
+//            print(doesContainText)
+//            if doesContainText == true{
+//                  filteredData.append(FriendsModel(profileImage: #imageLiteral(resourceName: "Puppy"), friendsName: "Shreeya Maskey", friendsDetails: "jbsjah bkab bdkjbd kedbkwjqb dbwkd iudhbiuqwhdiuh udbi", isfavourite: true))
+//            }else{
+//                //
+//            }
+            
+//        }
+//            let model = data.getData()[indexPath.row]
+//        let doesContainText = name.contains(searchText)
+//        print("Does Contain? ", doesContainText)
     }
     
 }

@@ -11,6 +11,7 @@ class LoginView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
+        checkValidity()
     }
     
     required init?(coder: NSCoder) {
@@ -39,6 +40,7 @@ class LoginView: UIView {
         emailfiled.borderStyle = .roundedRect
         emailfiled.font = UIFont.systemFont(ofSize: 22)
         emailfiled.keyboardType = .emailAddress
+        emailfiled.addTarget(self, action: #selector(handelEmailChanges), for: .editingChanged)
         return emailfiled
     }()
     
@@ -48,18 +50,22 @@ class LoginView: UIView {
         pwfield.textAlignment = .center
         pwfield.borderStyle = .roundedRect
         pwfield.font = UIFont.systemFont(ofSize: 22)
+        pwfield.addTarget(self, action: #selector(handelPasswordChanges), for: .editingChanged)
         return pwfield
     }()
     
     let loginbtn: UIButton = {
         let btn = UIButton()
         btn.setTitle("LOGIN", for: .normal)
-        btn.setTitleColor(.systemPink, for: .normal)
-        btn.backgroundColor = .white
+        btn.setTitleColor(.white, for: .normal)
+//        btn.backgroundColor = .white
         btn.heightAnchor.constraint(equalToConstant: 44).isActive = true
         btn.addTarget(self , action: #selector(openHomepage), for: .touchUpInside)
         return btn
     }()
+    
+    var isEmailValid = false
+    var isPasswordValid = false
     
     private func setupUI(){
         addSubview(scrollView)
@@ -88,6 +94,43 @@ class LoginView: UIView {
     
     @objc func openHomepage() {
         openHomepagebtnClicked?()
+    }
+    
+    @objc func handelEmailChanges(_ textField: UITextField){
+        let email = textField.text ?? ""
+        isEmailValid = checkEmail(with: email)
+//        print(isEmailValid)
+        checkValidity()
+    }
+    
+    @objc func handelPasswordChanges(_ textField: UITextField) {
+        let pw = textField.text ?? ""
+        isPasswordValid = checkPassword(with: pw)
+//        print(isPasswordValid)
+        checkValidity()
+    }
+    
+    private func checkPassword(with text:String) -> Bool {
+        let pwregex = "\\A(?=[^a-z]*[a-z])(?=[^0-9]*[0-9])[a-zA-Z0-9!@#$%^&*]{8,}\\z"
+        let pwpredicate = NSPredicate(format: "SELF MATCHES %@", pwregex)
+        return pwpredicate.evaluate(with: text)
+    }
+    
+    
+    private func checkEmail(with text:String) -> Bool{
+        let emailregex = #"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,64}"#
+        let emailpredicate = NSPredicate(format: "SELF MATCHES %@", emailregex)
+        return emailpredicate.evaluate(with: text)
+    }
+    
+    private func checkValidity() {
+        if isEmailValid == true && isPasswordValid == true {
+            loginbtn.isEnabled = true
+            loginbtn.backgroundColor = .systemBlue
+        } else {
+            loginbtn.isEnabled = false
+            loginbtn.backgroundColor = .systemGray
+        }
     }
     
 }

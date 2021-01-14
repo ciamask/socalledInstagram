@@ -15,6 +15,8 @@ struct FriendsModel {
 }
 
 struct FriendsData {
+//    private var data = [FriendsModel]()
+    
     private var data = [FriendsModel]()
     
     init() {
@@ -26,5 +28,9 @@ struct FriendsData {
     
     func getData() -> [FriendsModel] {
         return data
+    }
+    
+    mutating func setData(friendsArray: [FriendsModel]) {
+        data = friendsArray
     }
 }
