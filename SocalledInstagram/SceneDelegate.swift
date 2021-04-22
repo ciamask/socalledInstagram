@@ -17,8 +17,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         window?.makeKeyAndVisible()
-//        window?.rootViewController = LoginVC()
-        window?.rootViewController = MainTabBarVC()
+        window?.rootViewController = LoginVC()
+//        window?.rootViewController = MainTabBarVC()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
